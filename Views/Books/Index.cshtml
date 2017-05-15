@@ -1,0 +1,66 @@
+@model IEnumerable<DomowaBibliotekaCore.Models.Data_Models.Books>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Wszystkie książki</h2>
+
+<p>
+    @Html.ActionLink("Dodaj nową", "Create")
+    @using (Html.BeginForm("Index", "Books", FormMethod.Get))
+    {
+    <p>
+        Tytuł: @Html.TextBox("searchTitle")
+        Autor: @Html.TextBox("searchAuthor")
+        Gatunek: @Html.DropDownList("BookGenre", "")
+        <input type="submit" value="Szukaj" class="btn btn-default"/>
+        Sortowanie: @Html.DropDownList("Sort","")
+        <input type="submit" value="Sortuj" class="btn btn-default"/>
+    </p>
+    }
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Tytuł")
+        </th>
+        <th>
+            @Html.DisplayName("Rok wydania")
+        </th>
+        <th>
+            @Html.DisplayName("Opis")
+        </th>
+        <th>
+            @Html.DisplayName("Okładka")
+        </th>
+
+        <th></th>
+    </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.year)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.description)
+                </td>
+                <td>
+                    @if (item.cover != null)
+                    {<img src="~/img/covers/@item.cover" width="130" height="200" /> }
+                </td>
+                <td>
+                    @Html.ActionLink("Edytuj", "Edit", new { id = item.id }) |
+                    @Html.ActionLink("Szczegóły", "Details", new { id = item.id }) |
+                    @Html.ActionLink("Usuń", "Delete", new { id = item.id })
+                </td>
+            </tr>
+            }
+
+</table>

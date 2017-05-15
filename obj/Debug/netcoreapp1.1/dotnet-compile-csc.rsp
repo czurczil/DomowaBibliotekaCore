@@ -267,5 +267,6 @@
 "/home/ubuntu/DomowaBibliotekaCore/Services/MessageServices.cs"
 "/home/ubuntu/DomowaBibliotekaCore/Services/ISmsSender.cs"
 "/home/ubuntu/DomowaBibliotekaCore/Controllers/AccountController.cs"
+"/home/ubuntu/DomowaBibliotekaCore/Controllers/BooksController.cs"
 "/home/ubuntu/DomowaBibliotekaCore/Controllers/ManageController.cs"
 "/home/ubuntu/DomowaBibliotekaCore/Controllers/HomeController.cs"
