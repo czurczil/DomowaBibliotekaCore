@@ -1,0 +1,33 @@
+@model IEnumerable<DomowaBibliotekaCore.Models.Data_Models.Genres>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Gatunki</h2>
+
+@*<p>
+        @Html.ActionLink("Dodaj", "Create")
+    </p>*@
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Gatunek")
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.genre)
+        </td>
+        <td>
+            @Html.ActionLink("Edytuj", "Edit", new { id=item.id }) |
+            @*@Html.ActionLink("Szczegóły", "Details", new { id=item.id }) |*@
+            @Html.ActionLink("Usuń", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

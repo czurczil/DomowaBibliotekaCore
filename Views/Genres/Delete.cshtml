@@ -1,0 +1,30 @@
+@model DomowaBibliotekaCore.Models.Data_Models.Genres
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Usuń</h2>
+
+<h3>Czy napewno chcesz usunąć ten gatunek?</h3>
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Gatunek")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.genre)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Usuń" class="btn btn-default" /> |
+            @Html.ActionLink("Powrót", "Index")
+        </div>
+    }
+</div>

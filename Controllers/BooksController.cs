@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Hosting;
 using DomowaBibliotekaCore.Models;
 using DomowaBibliotekaCore.Models.Data_Models;
 using Microsoft.AspNetCore.Identity;
@@ -11,12 +12,18 @@ using Microsoft.AspNetCore;
 using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.IO;
 
 namespace DomowaBibliotekaCore.Controllers
 {
     public class BooksController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private IHostingEnvironment _hostEnv;
+        public BooksController(IHostingEnvironment hostingEnvironment)
+        {
+            _hostEnv = hostingEnvironment;
+        }
         List<string> sorting = new List<string>() { "Tytuł: alfabetycznie", "Tytuł: niealfabatycznie", "Rok wydania: rosnąco", "Rok wydania: malejąco" };
 
         // GET: Books
@@ -139,8 +146,12 @@ namespace DomowaBibliotekaCore.Controllers
                                 description = newBook.Books.description,
                                 cover = newBook.cover.FileName
                             };
-
-                            //newBook.cover.SaveAs(HttpContext.Server.MapPath(ConfigurationManager.AppSettings["bookCovers"]) + book.cover);
+                            var img = "img/covers/" + book.cover;
+                            var coversPath = Path.Combine(_hostEnv.WebRootPath, img);
+                            using (var fileStream = new FileStream(coversPath, FileMode.Create)) 
+                            {
+                                newBook.cover.CopyTo(fileStream);
+                            }           
                         }
 
                         db.Books.Add(book);
@@ -177,8 +188,12 @@ namespace DomowaBibliotekaCore.Controllers
                                 photo = newBook.photo.FileName,
                                 sex = newBook.Authors.sex
                             };
-
-                            //newBook.photo.SaveAs(HttpContext.Server.MapPath(ConfigurationManager.AppSettings["authorPhotos"]) + author.photo);
+                            var photo = "/img/photos/" + author.photo;
+                            var photosPath = Path.Combine(_hostEnv.WebRootPath, photo);
+                            using (var fileStream = new FileStream(photosPath, FileMode.Create)) 
+                            {
+                                newBook.photo.CopyTo(fileStream);
+                            }    
                         }
 
                         db.Authors.Add(author);
@@ -337,7 +352,12 @@ namespace DomowaBibliotekaCore.Controllers
                 if(editedBook.cover != null)
                 {
                     books.cover = editedBook.cover.FileName;
-                    //editedBook.cover.SaveAs(HttpContext.Server.MapPath(ConfigurationManager.AppSettings["bookCovers"]) + books.cover);
+                    var img = "img/covers/" + books.cover;
+                    var coversPath = Path.Combine(_hostEnv.WebRootPath, img);
+                    using (var fileStream = new FileStream(coversPath, FileMode.Create)) 
+                    {
+                        editedBook.cover.CopyTo(fileStream);
+                    }  
                 }
 
                 string user_id = null;
@@ -497,7 +517,7 @@ namespace DomowaBibliotekaCore.Controllers
             return View(books);
         }
 
-        public bool IsInDatabase(string data, string data2, int n)
+        public static bool IsInDatabase(string data, string data2, int n)
         {
             using (var context = new Models.ApplicationDbContext())
             {

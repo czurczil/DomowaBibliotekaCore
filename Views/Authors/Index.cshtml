@@ -1,0 +1,80 @@
+@model IEnumerable<DomowaBibliotekaCore.Models.Data_Models.Authors>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Autorzy</h2>
+
+<p>
+    @Html.ActionLink("Dodaj", "Create")
+    @using (Html.BeginForm("Index", "Authors", FormMethod.Get))
+    {
+    <p>
+        Autor: @Html.TextBox("searchAuthor")
+        <input type="submit" value="Szukaj" class="btn btn-default"/>
+        Sortowanie: @Html.DropDownList("Sort", "")
+        <input type="submit" value="Sortuj" class="btn btn-default"/>
+    </p>
+    }
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Imię")
+        </th>
+        <th>
+            @Html.DisplayName("Nazwisko")
+        </th>
+        <th>
+            @Html.DisplayName("Data urodzenia")
+        </th>
+        <th>
+            @Html.DisplayName("Płeć")
+        </th>
+        <th>
+            @Html.DisplayName("Kraj urodzenia")
+        </th>
+        <th>
+            @Html.DisplayName("Biografia")
+        </th>
+        <th>
+            @Html.DisplayName("Zdjęcie")
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.firstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.lastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.birthDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sex)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.birthPlace)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BIO)
+        </td>
+
+        <td>
+            @if (item.photo != null)
+            {<img src="~/img/photos/@item.photo" width="130" height="200" /> }
+        </td>
+
+        <td>
+            @Html.ActionLink("Edytuj", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Szczegóły", "Details", new { id=item.id }) |
+            @Html.ActionLink("Usuń", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

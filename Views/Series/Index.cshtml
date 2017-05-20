@@ -1,0 +1,29 @@
+@model IEnumerable<DomowaBibliotekaCore.Models.Data_Models.Series>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Cykle</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Cykl")
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.series)
+        </td>
+        <td>
+            @Html.ActionLink("Edytuj", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Usuń", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

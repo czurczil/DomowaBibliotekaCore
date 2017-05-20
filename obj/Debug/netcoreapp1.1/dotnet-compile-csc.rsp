@@ -269,4 +269,7 @@
 "/home/ubuntu/DomowaBibliotekaCore/Controllers/AccountController.cs"
 "/home/ubuntu/DomowaBibliotekaCore/Controllers/BooksController.cs"
 "/home/ubuntu/DomowaBibliotekaCore/Controllers/ManageController.cs"
+"/home/ubuntu/DomowaBibliotekaCore/Controllers/AuthorsController.cs"
+"/home/ubuntu/DomowaBibliotekaCore/Controllers/GenresController.cs"
+"/home/ubuntu/DomowaBibliotekaCore/Controllers/SeriesController.cs"
 "/home/ubuntu/DomowaBibliotekaCore/Controllers/HomeController.cs"

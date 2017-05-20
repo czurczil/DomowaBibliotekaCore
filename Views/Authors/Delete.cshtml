@@ -1,0 +1,68 @@
+@model DomowaBibliotekaCore.Models.Data_Models.Authors
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Usuń</h2>
+
+<h3>Czy napewno chcesz usunąć tego autora?</h3>
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Imię")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.firstName)
+        </dd>
+        <dt>
+            @Html.DisplayName("Nazwisko")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.lastName)
+        </dd>
+        <dt>
+            @Html.DisplayName("Data urodzenia")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.birthDate)
+        </dd>
+        <dt>
+            @Html.DisplayName("Płeć")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.sex)
+        </dd>
+        <dt>
+            @Html.DisplayName("Kraj urodzenia")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.birthPlace)
+        </dd>
+        <dt>
+            @Html.DisplayName("Biografia")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BIO)
+        </dd>
+        <dt>
+            @Html.DisplayName("Zdjęcie")
+        </dt>
+        <dd>
+            @if (Model.photo != null)
+            {
+                <img src="~/img/photos/@Model.photo" width="130" height="200" />
+            }
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Usuń" class="btn btn-default" /> |
+            @Html.ActionLink("Powrót", "Index")
+        </div>
+    }
+</div>

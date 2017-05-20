@@ -1,0 +1,188 @@
+@model DomowaBibliotekaCore.Models.BookDetailsModel
+@using System.Security.Principal
+
+@{
+    ViewBag.Title = "Edytuj";
+}
+
+<h2>Edytuj</h2>
+
+@using (Html.BeginForm("Edit", "Books", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Książkę</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Book.id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Book.title, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Book.title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Book.title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Book.year, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Book.year, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Book.year, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Book.description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Book.description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Book.description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label col-md-2">
+                @Html.Label("Okładka")
+            </div>
+            <div class="col-md-10">
+                @if (Model.Book.cover != null)
+                {
+                    <img src="~/img/covers/@Model.Book.cover" width="130" height="200" />
+                }
+                <input id="cover" type="file" name="cover" />
+                @Html.ValidationMessageFor(model => model.cover, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label col-md-2">
+                @Html.Label("Autorzy")
+            </div>
+            @foreach (var item in Model.Details)
+            {
+                if (item.AuthorChecked)
+                {
+                    <div class="col-md-10">
+                        @item.Author.firstName
+                        @item.Author.lastName
+                        @Html.ActionLink("Usuń", "DeleteRelation", "Authors", new { book_id = Model.Book.id, fname = item.Author.firstName, lname = item.Author.lastName }, null)
+                    </div>
+                }
+            }
+            <div class="col-md-offset-2 col-md-10">
+                @Html.ActionLink("Dodaj autora", "Create", "Authors", new { book_id = Model.Book.id }, new { @class = "btn btn-default" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label col-md-2">
+                @Html.Label("Gatunki")
+            </div>
+            @foreach (var item in Model.Details)
+            {
+                if (item.GenreChecked)
+                {
+                    <div class="col-md-10">
+                        @item.Genre.genre
+                        @Html.ActionLink("Usuń", "DeleteRelation", "Genres", new { book_id = Model.Book.id, genre = item.Genre.genre }, null)
+                    </div>
+                    
+                }
+            }
+            <div class="col-md-offset-2 col-md-10">
+                @Html.ActionLink("Dodaj gatunek", "Create", "Genres", new { book_id = Model.Book.id }, new { @class = "btn btn-default" })
+            </div>
+            </div>
+
+        <div class="form-group">
+            <div class="control-label col-md-2">
+                @Html.Label("Cykle")
+            </div>
+            @foreach (var item in Model.Details)
+            {
+                if (item.SeriesChecked)
+                {
+                    <div class="col-md-10">
+                        @item.Series.series
+                        @Html.ActionLink("Usuń", "DeleteRelation", "Series", new { book_id = Model.Book.id, series = item.Series.series }, null)
+                    </div>
+                }
+
+            }
+            <div class="col-md-offset-2 col-md-10">
+                @Html.ActionLink("Dodaj cykl", "Create", "Series", new { book_id = Model.Book.id }, new { @class = "btn btn-default" })
+            </div>
+            </div>
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="form-group">
+                <div class="control-label col-md-2">
+                    @Html.Label("Ulubione")
+                </div>
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.isFavorite)
+                        @Html.ValidationMessageFor(model => model.isFavorite, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="control-label col-md-2">
+                    @Html.Label("Przeczytane")
+                </div>
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.isRead)
+                        @Html.ValidationMessageFor(model => model.isRead, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="control-label col-md-2">
+                    @Html.Label("Do przeczytania")
+                </div>
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.isOnWishList)
+                        @Html.ValidationMessageFor(model => model.isOnWishList, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="control-label col-md-2">
+                    @Html.Label("Ocena")
+                </div>
+                <div class="col-md-10">
+                    
+                    @Html.DropDownList("Rating")
+                    @Html.ValidationMessageFor(model => model.rating, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="control-label col-md-2">
+                    @Html.Label("Komentarz")
+                </div>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.comment ,new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.comment, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        }
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Zapisz" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Powrót", "Index")
+</div>

@@ -1,0 +1,142 @@
+@model DomowaBibliotekaCore.Models.BookDetailsModel
+@using System.Security.Principal
+
+@{
+    ViewBag.Title = "Szczegóły";
+}
+
+<h2>Szczegóły</h2>
+
+<div>
+    <h4>Książki</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Tytuł")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Book.title)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Rok wydania")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Book.year)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Opis")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Book.description)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Okładka")
+        </dt>
+
+        <dd>
+            @if (Model.Book.cover != null)
+            {
+                <img src="~/img/covers/@Model.Book.cover" width="130" height="200" />
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Autorzy")
+        </dt>
+
+        @foreach (var item in Model.Details)
+        {
+            if (item.AuthorChecked)
+            {
+                <dd>
+                    @item.Author.firstName
+                    @item.Author.lastName
+                </dd>
+            }
+        }
+
+        <dt>
+            @Html.DisplayName("Gatunki")
+        </dt>
+
+        @foreach (var item in Model.Details)
+        {
+            if (item.GenreChecked)
+            {
+                <dd>
+                    @item.Genre.genre
+                </dd>
+            }
+        }
+
+        <dt>
+            @Html.DisplayName("Cykle")
+        </dt>
+
+        @foreach (var item in Model.Details)
+        {
+            if (item.SeriesChecked)
+            {
+                <dd>
+                    @item.Series.series
+                </dd>
+            }
+        }
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            <dt>
+                @Html.DisplayName("Ulubione")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.isFavorite)
+            </dd>
+
+            <dt>
+                @Html.DisplayName("Przeczytane")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.isRead)
+            </dd>
+
+            <dt>
+                @Html.DisplayName("Do przeczytania")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.isOnWishList)
+            </dd>
+
+            <dt>
+                @Html.DisplayName("Ocena")
+            </dt>
+
+            if (Model.rating != 0)
+            {
+                <dd>
+                    @Html.DisplayFor(model => model.rating)/10
+                </dd>
+            }
+
+            <dt>
+                @Html.DisplayName("Komentarz")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.comment)
+            </dd>
+        }
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edytuj", "Edit", new { id = Model.Book.id }) |
+    @Html.ActionLink("Powrót", "Index")
+</p>

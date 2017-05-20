@@ -20,7 +20,7 @@
 
 <h2>Dodaj książkę</h2>
 
-@using (Html.BeginForm("Create", "Books", FormMethod.Post))
+@using (Html.BeginForm("Create", "Books", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -29,7 +29,9 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.Label("Tytuł")
+            <div class="control-label col-md-2">
+                @Html.Label("Tytuł")
+            </div>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Books.title, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Books.title, "", new { @class = "text-danger" })
@@ -37,7 +39,9 @@
         </div>
 
         <div class="form-group">
-            @Html.Label("Gatunek")
+            <div class="control-label col-md-2">
+                @Html.Label("Gatunek")
+            </div>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Genres.genre, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Genres.genre, "", new { @class = "text-danger" })
@@ -45,7 +49,9 @@
         </div>
 
         <div class="form-group">
-            @Html.Label("Cykl")
+            <div class="control-label col-md-2">
+                @Html.Label("Cykl")
+            </div>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Series.series, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Series.series, "", new { @class = "text-danger" })
@@ -53,7 +59,9 @@
         </div>
 
         <div class="form-group">
-            @Html.Label("Rok wydania")
+            <div class="control-label col-md-2">
+                @Html.Label("Rok wydania")
+            </div>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Books.year, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Books.year, "", new { @class = "text-danger" })
@@ -61,7 +69,9 @@
         </div>
 
         <div class="form-group">
-            @Html.Label("Opis")
+            <div class="control-label col-md-2">
+                @Html.Label("Opis")
+            </div>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Books.description, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Books.description, "", new { @class = "text-danger" })
@@ -69,7 +79,9 @@
         </div>
 
         <div class="form-group">
-            @Html.Label("Okładka")
+            <div class="control-label col-md-2">
+                @Html.Label("Okładka")
+            </div>
             <div class="col-md-10">
                 <input id="cover" type="file" name="cover" />
                 @Html.ValidationMessageFor(model => model.cover, "", new { @class = "text-danger" })
@@ -79,7 +91,9 @@
         <h4>Autor</h4>
         <hr />
         <div class="form-group">
-            @Html.Label("Imię")
+            <div class="control-label col-md-2">
+                @Html.Label("Imię")
+            </div>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Authors.firstName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Authors.firstName, "", new { @class = "text-danger" })
@@ -87,7 +101,9 @@
         </div>
 
         <div class="form-group">
-            @Html.Label("Nazwisko")
+            <div class="control-label col-md-2">
+                @Html.Label("Nazwisko")
+            </div>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Authors.lastName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Authors.lastName, "", new { @class = "text-danger" })
@@ -95,7 +111,9 @@
         </div>
 
         <div class="form-group">
-            @Html.Label("Data urodzenia")
+            <div class="control-label col-md-2">
+                @Html.Label("Data urodzenia")
+            </div>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Authors.birthDate, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Authors.birthDate, "", new { @class = "text-danger" })
@@ -103,7 +121,9 @@
         </div>
 
         <div class="form-group">
-            @Html.Label("Miejsce urodzenia")
+            <div class="control-label col-md-2">
+                @Html.Label("Miejsce urodzenia")
+            </div>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Authors.birthPlace, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Authors.birthPlace, "", new { @class = "text-danger" })
@@ -111,14 +131,18 @@
         </div>
 
         <div class="form-group">
-            @Html.Label("Płeć")
+            <div class="control-label col-md-2">
+                @Html.Label("Płeć")
+            </div>
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.Authors.sex, listItems, "-- Wybierz płeć --", new { @class = "form-control" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.Label("Biografia")
+            <div class="control-label col-md-2">
+                @Html.Label("Biografia")
+            </div>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Authors.BIO, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Authors.BIO, "", new { @class = "text-danger" })
@@ -126,22 +150,14 @@
         </div>
 
         <div class="form-group">
-            @Html.Label("Zdjęcie")
+            <div class="control-label col-md-2">
+                @Html.Label("Zdjęcie")
+            </div>
             <div class="col-md-10">
                 <input id="photo" type="file" name="photo" />
                 @Html.ValidationMessageFor(model => model.photo, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        @*@Html.Partial("_Authors_Partial", Model)
-        <div id="someDiv">
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="button" id="Button1" value="Dodaj kolejnego autora" />
-            </div>
-        </div>*@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

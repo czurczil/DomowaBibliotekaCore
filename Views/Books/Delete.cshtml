@@ -1,0 +1,57 @@
+@model DomowaBibliotekaCore.Models.Data_Models.Books
+
+@{
+    ViewBag.Title = "Usuń";
+}
+
+<h2>Usuwanie</h2>
+
+<h3>Czy napewno chcesz usunąć tę książkę?</h3>
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Tytuł")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.title)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Rok wydania")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.year)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Opis")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.description)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Okładka")
+        </dt>
+
+        <dd> 
+            @if (Model.cover != null)
+            {
+                <img src="~/img/covers/@Model.cover" width="130" height="200" />
+            }
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Usuń" class="btn btn-default" /> |
+            @Html.ActionLink("Powrót", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,97 @@
+@model DomowaBibliotekaCore.Models.AuthorDetailsModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Szczegóły</h2>
+
+<div>
+    <h4>Autorzy</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Imię")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Author.firstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Nazwisko")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Author.lastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Data urodzenia")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Author.birthDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Płeć")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Author.sex)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Kraj urodzenia")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Author.birthPlace)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Biografia")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Author.BIO)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Zdjęcie")
+        </dt>
+
+        <dd>
+            @if (Model.Author.photo != null)
+            {
+                <img src="~/img/photos/@Model.Author.photo" width="130" height="200" />
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Książki")
+        </dt>
+
+
+        <dd>
+            <br />
+            @foreach (var item in Model.Books)
+            {
+                if (item.BooksChecked)
+                {
+                    @Html.ActionLink(item.Books.title, "Index", "Books", new { searchTitle = item.Books.title }, null)
+                    if (item.Books.cover != null)
+                    {
+                        <img src="~/img/covers/@item.Books.cover" width="130" height="200" />
+                    }
+                }
+            }
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edytuj", "Edit", new { id = Model.Author.id }) |
+    @Html.ActionLink("Powrót", "Index")
+</p>
