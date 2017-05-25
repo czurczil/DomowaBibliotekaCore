@@ -188,7 +188,7 @@ namespace DomowaBibliotekaCore.Controllers
                                 photo = newBook.photo.FileName,
                                 sex = newBook.Authors.sex
                             };
-                            var photo = "/img/photos/" + author.photo;
+                            var photo = "img/photos/" + author.photo;
                             var photosPath = Path.Combine(_hostEnv.WebRootPath, photo);
                             using (var fileStream = new FileStream(photosPath, FileMode.Create)) 
                             {
